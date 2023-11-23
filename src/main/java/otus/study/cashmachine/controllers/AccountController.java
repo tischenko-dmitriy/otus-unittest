@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -29,8 +30,8 @@ public class AccountController {
     }
 
     @PostMapping
-    public void createAccount(@RequestBody BigDecimal amount) {
-        accountService.createAccount(amount);
+    public Long createAccount(@RequestBody Amount amount) {
+        return accountService.createAccount(amount.getAmount()).getId();
     }
 
     @GetMapping(value = "/{id}")
@@ -41,8 +42,8 @@ public class AccountController {
 
     @PutMapping(value = "/{id}")
     public BigDecimal putMoney(@PathVariable(value = "id") Long id,
-                               @RequestParam(name = "amount") BigDecimal amount) {
-        return accountService.getMoney(id, amount);
+                                   @RequestParam(name = "amount") int amount) {
+        return accountService.getMoney(id, BigDecimal.valueOf(amount));
     }
 
     @GetMapping(value = "/{id}/check")
@@ -53,6 +54,7 @@ public class AccountController {
     @Getter
     @Setter
     @AllArgsConstructor
+    @NoArgsConstructor
     @JsonAutoDetect
     private static class Amount {
         @JsonProperty(value = "amount")
