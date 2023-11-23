@@ -1,15 +1,17 @@
 package otus.study.cashmachine.bank.service.impl;
 
+import org.springframework.stereotype.Service;
 import otus.study.cashmachine.bank.dao.AccountDao;
 import otus.study.cashmachine.bank.data.Account;
 import otus.study.cashmachine.bank.service.AccountService;
 
 import java.math.BigDecimal;
 
+@Service
 public class AccountServiceImpl implements AccountService {
-    AccountDao accountDao;
+    private final AccountDao accountDao;
 
-    public AccountServiceImpl(final AccountDao accountDao) {
+    public AccountServiceImpl(AccountDao accountDao) {
         this.accountDao = accountDao;
     }
 
