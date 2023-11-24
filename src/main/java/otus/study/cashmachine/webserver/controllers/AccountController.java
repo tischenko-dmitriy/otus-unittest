@@ -27,10 +27,8 @@ public class AccountController {
     }
 
     @GetMapping(value = "/{id}")
-    @ResponseBody
-    public ResponseEntity<AccountDto> getAccount(@PathVariable(value = "id") Long id) {
-        AccountDto accountDto = accountDtoService.getAccount(id);
-        return new ResponseEntity<>(accountDto, HttpStatus.OK);
+    public AccountDto getAccount(@PathVariable(value = "id") long id) {
+        return accountDtoService.getAccount(id);
     }
 
     @PutMapping(value = "/{id}")
