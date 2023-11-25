@@ -80,7 +80,7 @@ public class CardServiceImpl implements CardService {
     }
 
     private void checkPin(Card card, String pin) {
-        if (!getHash(pin).equals(card.getPinCode())) {
+        if ( !getHash(pin).equals(getHash(card.getPinCode())) ) {
             throw new IllegalArgumentException("Pincode is incorrect");
         }
     }

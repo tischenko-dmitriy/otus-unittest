@@ -24,7 +24,7 @@ public class MoneyDto {
     @JsonProperty(value = "pin")
     private String pin;
 
-    @JsonProperty(value = "money")
+    @JsonProperty(value = "sum")
     private BigDecimal sum;
 
 }
