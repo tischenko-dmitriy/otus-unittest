@@ -14,32 +14,36 @@ import java.math.BigDecimal;
 
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 @RestController
-@RequestMapping(value = "/account",
-    consumes = "application/json; charset=UTF-8",
-    produces = "application/json; charset=UTF-8")
+@RequestMapping(value = "/account")
 public class AccountController {
 
     private final AccountDtoService accountDtoService;
 
-    @PostMapping
+    @PostMapping(
+            consumes = "application/json; charset=UTF-8",
+            produces = "application/json; charset=UTF-8")
     public AccountDto createAccount(@RequestBody Amount amount) {
         return accountDtoService.createAccount(amount.getAmount());
     }
 
-    @GetMapping(value = "/{id}")
+    @GetMapping(value = "/{id}",
+            produces = "application/json; charset=UTF-8")
     public AccountDto getAccount(@PathVariable(value = "id") long id) {
         return accountDtoService.getAccount(id);
     }
 
-    @PutMapping(value = "/{id}")
+    @PutMapping(value = "/{id}",
+            consumes = "application/json; charset=UTF-8",
+            produces = "application/json; charset=UTF-8")
     public BigDecimal putMoney(@PathVariable(value = "id") Long id,
                                @RequestParam(name = "amount") int amount) {
         return accountDtoService.getMoney(id, BigDecimal.valueOf(amount));
     }
 
-    @GetMapping(value = "/{id}/check")
-    public BigDecimal checkBalance(@PathVariable(value = "id") Long id) {
-        return accountDtoService.checkBalance(id);
+    @GetMapping(value = "/{id}/check",
+            produces = "application/json; charset=UTF-8")
+    public Amount checkBalance(@PathVariable(value = "id") Long id) {
+        return new Amount(accountDtoService.checkBalance(id));
     }
 
     @Getter
